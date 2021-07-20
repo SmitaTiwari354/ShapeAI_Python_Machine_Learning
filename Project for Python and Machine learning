@@ -1,0 +1,67 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Honey Sharma.ipynb",
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "I8OsBQx6zu5J"
+      },
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "import sklearn\n",
+        "\n",
+        "from sklearn.datasets import load_boston\n",
+        "df = load_boston()\n",
+        "df.keys()\n",
+        "print(df.DESCR)\n",
+        "\n",
+        "boston= pd.Dataframe(df.data , column=df.feature_name)\n",
+        "boston.head()\n",
+        "boston['MEDV']=df.target\n",
+        "boston.target\n",
+        "boston.isnull().sum()\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "X=boston.drop('MEDV',axis=1)\n",
+        "Y=boston['MEDV']\n",
+        "X_train,X_test,Y_train,Y_test= train_test_split(X,Y,test_size=0.15,random_state=1)\n",
+        "print(X_train.shape)\n",
+        "print(X_test.shape)\n",
+        "print(Y_train.shape)\n",
+        "print(Y_test.shape)\n",
+        "\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.metrices import mean_squared_error\n",
+        "\n",
+        "lin_model=LinearRegression()\n",
+        "lin_model.fit(X_train,Y_train)\n",
+        "\n",
+        "y_train_predict=lin.model.predict(X_test)\n",
+        "rmse=(np.sqrt(mean_squared_error(Y_train,y_train_predict)))\n",
+        "print(\"the model performance of training set\")\n",
+        "print('RMSE is {}'.format(rmse))\n",
+        "print(\"/n\")\n",
+        "y_test_predict=lin.model.predict(X.test)\n",
+        "rmse=(np.sqrt(mean_squared_error(Y_test,y_test_predict)))\n",
+        "print(\"the model performance of testing set\")\n",
+        "print('RMSE is {}'.format(rmse))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
